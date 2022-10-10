@@ -33,4 +33,3 @@ def execute_sql_statements(db_connector, sql_statements):
     for statement in sql_statements:
         cursor.execute(statement)
     cursor.close()
-    db_connector.close()

@@ -8,6 +8,7 @@ def execute_on_db(sql_file_path):
                          password='root')
     if conn.is_connected():
         execute_sql_statements(conn, get_sql_statements_from_file(sql_file_path))
+        conn.close()
     else:
         print('Database connection lost. Pleas try again.')
 
@@ -18,4 +19,5 @@ if __name__ == '__main__':
     print('Database configuration set up')
     ''' Database structure definition'''
     print('Database structure set up')
-    execute_on_db(os.path.abspath(os.getcwd()) + '/SQLScripts/01_create_db_structure.sql')
+    sql = os.path.abspath(os.getcwd()) + '/SQLScripts/01_create_db_structure.sql'
+    execute_on_db(sql)
