@@ -23,7 +23,7 @@ def execute_sql(sql_conn, sql_path):
     execute_sql_statements(sql_conn, sql_statements)
 
 
-if __name__ == '__main__':
+def import_trips_data():
     rows = []
     rows_per_block = 0
     block_of_lines = 0
@@ -33,7 +33,7 @@ if __name__ == '__main__':
     csv_path = os.path.abspath(os.getcwd()) + '/DataSources/trips.csv'
     file = open(csv_path, 'r')
     rows_count = sum(1 for row in csv.reader(file))
-    rows_per_block = int(rows_count/10)
+    rows_per_block = int(rows_count / 10)
     print('Total number of rows to be processed: {}'.format(str(rows_count)))
     try:
         execute_sql(conn, '/SQLScripts/02_create_raw_table.sql')
@@ -67,3 +67,7 @@ if __name__ == '__main__':
     finally:
         if conn.is_connected():
             conn.close()
+
+
+if __name__ == '__main__':
+    import_trips_data()

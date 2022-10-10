@@ -33,3 +33,10 @@ def execute_sql_statements(db_connector, sql_statements):
     for statement in sql_statements:
         cursor.execute(statement)
     cursor.close()
+
+
+def execute_sql_report(db_connector, sql_statements):
+    cursor = db_connector.cursor()
+    for statement in sql_statements:
+        cursor.execute(statement)
+    return cursor
