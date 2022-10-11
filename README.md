@@ -6,7 +6,8 @@ The application has been developed using the following technologies:
 
 - Operating System: Linux Ubuntu 20.04
 - SDK: Python 3.9
-- Database: MySQL 8.0.30 / localhost 
+- Database: MySQL 8.0.30 / localhost
+- You can execute pip install -r requirements.txt tor install al dependencies
 
 
 ### Considerations
@@ -25,7 +26,7 @@ The file **setup_environment.py** has a main executable function that calls the 
 ### Run application
 
 The main file called "**main.py**" shows all the options the application can perform.
-
+The csv file name is hardcoded, the best idea would be to have configuration keys, but in this first approach is located in the DataSources folder. 
 
 
 
