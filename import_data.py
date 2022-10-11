@@ -3,7 +3,10 @@ import csv
 import sys
 from Services.db_services import *
 
-
+''' 
+    This function open a csv file and return a generator.
+    The main purpose of this is to return row by row
+    and improve the memory usage'''
 def get_lines(filename):
     with open(filename, 'r') as csv_file:
         data_reader = csv.reader(csv_file)
@@ -11,6 +14,11 @@ def get_lines(filename):
             yield row
 
 
+''' 
+    This function receives a database connector and a list of rows
+    to be inserted. It uses the executemany function to work with a 
+    group of rows instead doing it one by one. 
+'''
 def insert_data(sql_conn, rows_to_insert):
     cursor = sql_conn.cursor()
     sql_insert = get_sql_statements_from_file(os.path.abspath(os.getcwd()) + '/SQLScripts/03_insert_raw_data.sql')
@@ -18,11 +26,18 @@ def insert_data(sql_conn, rows_to_insert):
     return cursor.rowcount
 
 
+''' 
+    This function avoid redundant code and simplify the sql statements executions using the database service located 
+    in the Services/db_services.py file'''
 def execute_sql(sql_conn, sql_path):
     sql_statements = get_sql_statements_from_file(os.path.abspath(os.getcwd()) + sql_path)
     execute_sql_statements(sql_conn, sql_statements)
 
-
+'''
+    The main idea of this function is to insert chunk of rows. Every block of rows is calculated from the total number
+    of rows in the csv file. Also it assumes that every csv file has a header row.
+    It performs only one commit for ACID accomplish. It will log the steps of the process.
+'''
 def import_trips_data():
     rows = []
     rows_per_block = 0
@@ -68,6 +83,8 @@ def import_trips_data():
         if conn.is_connected():
             conn.close()
 
-
+'''
+    This main function is for test purposes
+'''
 if __name__ == '__main__':
     import_trips_data()
